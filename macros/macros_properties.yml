@@ -1,0 +1,25 @@
+version: 2
+
+macros:
+  - name: get_payment_type_description
+    description: >
+      This macro receives a payment_type and returns the corresponding description.
+    arguments:
+      - name: payment_type
+        type: int
+        description: > 
+          payment_type value.
+          Must be one of the accepted values, otherwise the macro will return null
+
+  - name: gen_hex_key
+    description: >
+      dbt_utils(1.0.0 version).generate_surrogate_key() resolves into incorrect compiled sql syntax:
+      to_hex(md5(cast(coalesce(cast( as STRING), '_dbt_utils_surrogate_key_null_') || '-' || coalesce(cast( as STRING), '_dbt_utils_surrogate_key_null_') as STRING)))  as  tripid,
+      so created a simple replacement
+    arguments:
+      - name: field_one
+        type: any non null field which can be casted as string
+      - name: field_two
+        type: any non null field which can be casted as string
+      - name: field_three
+        type: any non null field which can be casted as string
